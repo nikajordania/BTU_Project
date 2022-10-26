@@ -23,7 +23,8 @@ public class ApiTests {
               .queryParam("ISBN","9781449325862")
               .when()
               .get("https://bookstore.toolsqa.com/BookStore/v1/Book")
-              .then()
+              .then().
+              log().all()
               .extract()
               .jsonPath().getString("isbn");
         System.out.println(isbn);
@@ -34,7 +35,7 @@ public class ApiTests {
       given()
                 .when()
                 .get("https://bookstore.toolsqa.com/BookStore/v1/Books")
-                .then()
+                .then().log().all()
                  .assertThat()
                 .body("books[2,5].isbn",hasItems("9781449337711","9781491950296"));
 
@@ -45,7 +46,7 @@ public class ApiTests {
                 .queryParam("ISBN","9781449325862")
                 .when()
                 .get("https://bookstore.toolsqa.com/BookStore/v1/Book")
-                .then().assertThat()
+                .then().log().all().assertThat()
                 .body("isbn",equalTo("9781449325862"));
     }
 }
